@@ -1,5 +1,7 @@
 # ReScript Country Select
 
+Demo https://justosophy.github.io/rescript-country-select/
+
 ## Installation
 
 ```sh
