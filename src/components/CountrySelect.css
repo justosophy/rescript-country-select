@@ -1,0 +1,18 @@
+.react-select--flag-options {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.fi {
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    margin-right: 1rem;
+    position: relative;
+    top: -3px;
+}
+
+.react-select--flag-options>* {
+    line-height: 0.75rem;
+}

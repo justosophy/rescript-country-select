@@ -1,0 +1,29 @@
+{
+  "name": "rescript-country-select",
+  "version": "0.0.1",
+  "scripts": {
+    "parcel:start": "parcel src/index.html",
+    "parcel:build": "parcel build src/index.html",
+    "res:build": "rescript",
+    "res:clean": "rescript clean",
+    "res:dev": "rescript build -w"
+  },
+  "keywords": [
+    "rescript"
+  ],
+  "author": "Justin Anderson",
+  "license": "MIT",
+  "dependencies": {
+    "@rescript/react": "^0.11.0",
+    "flag-icons": "^6.6.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-select": "^5.7.0",
+    "rescript": "*"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.3",
+    "parcel-reporter-static-files-copy": "^1.5.0",
+    "process": "^0.11.10"
+  }
+}

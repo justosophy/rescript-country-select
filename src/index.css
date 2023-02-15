@@ -1,0 +1,21 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-family: Helvetica, sans-serif;
+}
+
+#app {
+    width: 20rem;
+    margin: 0 auto;
+}
+
+#app>div {
+    padding-bottom: 2rem;
+}
