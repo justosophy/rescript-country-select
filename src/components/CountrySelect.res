@@ -222,7 +222,7 @@ module ReactSelect = {
 }
 
 @inline
-let countriesURL = "/countries.json"
+let countriesURL = "countries.json"
 
 %%raw(`import "/node_modules/flag-icons/css/flag-icons.min.css"`)
 %%raw(`import "./CountrySelect.css"`)

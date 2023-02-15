@@ -4,6 +4,7 @@
   "scripts": {
     "parcel:start": "parcel src/index.html",
     "parcel:build": "parcel build src/index.html",
+    "parcel:build:gh": "parcel build src/index.html --public-url /rescript-country-select",
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:dev": "rescript build -w"
