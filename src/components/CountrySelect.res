@@ -1,179 +1,24 @@
-module ReactSelectOption = {
-  @module("react-select") @scope("components") @react.component
-  external make: (
-    ~innerRef: JsxDOM.domRef,
-    ~label: string,
-    @as("type") ~_type: {..},
-    ~className: {..},
-    ~innerProps: {..},
-    ~data: {..},
-    ~isDisabled: {..},
-    ~isFocused: {..},
-    ~isSelected: {..},
-    ~clearValue: {..},
-    ~cx: {..},
-    ~getStyles: {..},
-    ~getClassNames: {..},
-    ~getValue: {..},
-    ~hasValue: {..},
-    ~isMulti: {..},
-    ~isRtl: {..},
-    ~options: {..},
-    ~selectOption: {..},
-    ~selectProps: {..},
-    ~setValue: {..},
-    ~theme: {..},
-    ~children: React.element,
-  ) => React.element = "Option"
-}
-
-module IconOption = {
-  @react.component
-  let make = (
-    ~innerRef: JsxDOM.domRef,
-    ~label: string,
-    @as("type") ~_type: {..},
-    ~className: {..},
-    ~innerProps: {..},
-    ~data: {..},
-    ~isDisabled: {..},
-    ~isFocused: {..},
-    ~isSelected: {..},
-    ~clearValue: {..},
-    ~cx: {..},
-    ~getStyles: {..},
-    ~getClassNames: {..},
-    ~getValue: {..},
-    ~hasValue: {..},
-    ~isMulti: {..},
-    ~isRtl: {..},
-    ~options: {..},
-    ~selectOption: {..},
-    ~selectProps: {..},
-    ~setValue: {..},
-    ~theme: {..},
-  ) => {
-    <ReactSelectOption
-      innerRef
-      label
-      _type
-      className
-      innerProps
-      data
-      isDisabled
-      isFocused
-      isSelected
-      clearValue
-      cx
-      getStyles
-      getClassNames
-      getValue
-      hasValue
-      isMulti
-      isRtl
-      options
-      selectOption
-      selectProps
-      setValue
-      theme>
-      <div className="react-select--flag-option">
-        <span>
-          <span className={"fi fi-" ++ data["value"]} />
-        </span>
-        {React.string(label)}
-      </div>
-    </ReactSelectOption>
-  }
-}
-
-module ReactSelectSingleValue = {
-  @module("react-select") @scope("components") @react.component
-  external make: (
-    ~className: {..},
-    ~innerProps: {..},
-    ~data: {..},
-    ~isDisabled: {..},
-    ~clearValue: {..},
-    ~cx: {..},
-    ~getStyles: {..},
-    ~getClassNames: {..},
-    ~getValue: {..},
-    ~hasValue: {..},
-    ~isMulti: {..},
-    ~isRtl: {..},
-    ~options: {..},
-    ~selectOption: {..},
-    ~selectProps: {..},
-    ~setValue: {..},
-    ~theme: {..},
-    ~children: React.element,
-  ) => React.element = "SingleValue"
-}
-
-module IconSingleValue = {
-  @react.component
-  let make = (
-    ~className: {..},
-    ~innerProps: {..},
-    ~data: {..},
-    ~isDisabled: {..},
-    ~clearValue: {..},
-    ~cx: {..},
-    ~getStyles: {..},
-    ~getClassNames: {..},
-    ~getValue: {..},
-    ~hasValue: {..},
-    ~isMulti: {..},
-    ~isRtl: {..},
-    ~options: {..},
-    ~selectOption: {..},
-    ~selectProps: {..},
-    ~setValue: {..},
-    ~theme: {..},
-  ) => {
-    <ReactSelectSingleValue
-      className
-      innerProps
-      data
-      isDisabled
-      clearValue
-      cx
-      getStyles
-      getClassNames
-      getValue
-      hasValue
-      isMulti
-      isRtl
-      options
-      selectOption
-      selectProps
-      setValue
-      theme>
-      <div className="react-select--flag-option">
-        <span>
-          <span className={"fi fi-" ++ data["value"]} />
-        </span>
-        {React.string(data["label"])}
-      </div>
-    </ReactSelectSingleValue>
-  }
-}
-
 module ReactSelect = {
   type optionType = {"value": string, "label": string}
 
   @module("react-select") @react.component
   external make: (
     ~className: string=?,
+    ~placeholder: string=?,
     ~value: optionType=?,
     ~options: Js.Array.t<optionType>,
     ~onChange: Js.Nullable.t<optionType> => unit,
     ~isLoading: bool,
+    ~autoFocus: bool,
+    ~controlShouldRenderValue: bool,
+    ~menuIsOpen: bool,
     ~components: {
-      "Option": React.component<
-        IconOption.props<
+      "Control": React.component<
+        CountrySelect_Control.props<
           JsxDOM.domRef,
-          string,
+          bool,
+          bool,
+          bool,
           {..},
           {..},
           {..},
@@ -188,16 +33,44 @@ module ReactSelect = {
           {..},
           {..},
           {..},
-          {..},
-          {..},
-          {..},
-          {..},
-          {..},
-          {..},
+          React.element,
         >,
       >,
-      "SingleValue": React.component<
-        IconSingleValue.props<
+      "DropdownIndicator": React.element,
+      "IndicatorSeparator": React.element,
+      "Menu": React.component<
+        CountrySelect_Menu.props<
+          JsxDOM.domRef,
+          bool,
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          {..},
+          React.element,
+        >,
+      >,
+      "Option": React.component<
+        CountrySelect_Option.props<
+          JsxDOM.domRef,
+          string,
+          bool,
+          bool,
           {..},
           {..},
           {..},
@@ -229,9 +102,12 @@ let countriesURL = "countries.json"
 
 @react.component
 let make = (~className: option<string>=?, ~country: option<string>, ~onChange: string => unit) => {
+  let (isOpen, setIsOpen) = React.Uncurried.useState(() => false)
+
   let onReactSelectChange = React.useCallback0((
     selectOpt: Js.Nullable.t<ReactSelect.optionType>,
   ) => {
+    setIsOpen(._ => false)
     switch selectOpt->Js.Nullable.toOption {
     | Some(country) => onChange(country["value"])
     | None => ()
@@ -262,12 +138,41 @@ let make = (~className: option<string>=?, ~country: option<string>, ~onChange: s
     Js.Array.find(countryOpt => countryOpt["value"] == c, countryOptions)
   )
 
-  <ReactSelect
-    ?className
-    ?value
-    options=countryOptions
-    onChange=onReactSelectChange
-    isLoading
-    components={{"Option": IconOption.make, "SingleValue": IconSingleValue.make}}
-  />
+  <div className={"countryselect " ++ className->Belt.Option.getWithDefault("")}>
+    <CountrySelect_DropDown
+      isOpen
+      target={<button
+        className="countryselect--button" onClick={_ => setIsOpen(.previous => !previous)}>
+        {<>
+          {value->Belt.Option.mapWithDefaultU(
+            <span className="countryselect--button--novalue"> {React.string("Select")} </span>,
+            (. country) => <>
+              <span className={"fi fi-" ++ country["value"]} />
+              <span> {React.string(country["label"])} </span>
+            </>,
+          )}
+          <div className="countryselect--button--arrow" />
+        </>}
+      </button>}
+      onClose={() => setIsOpen(._ => false)}>
+      <ReactSelect
+        className="countryselect--select"
+        ?value
+        options=countryOptions
+        onChange=onReactSelectChange
+        isLoading
+        placeholder="Search"
+        autoFocus=true
+        controlShouldRenderValue=false
+        menuIsOpen=true
+        components={{
+          "Control": CountrySelect_Control.make,
+          "DropdownIndicator": React.null,
+          "IndicatorSeparator": React.null,
+          "Menu": CountrySelect_Menu.make,
+          "Option": CountrySelect_Option.make,
+        }}
+      />
+    </CountrySelect_DropDown>
+  </div>
 }

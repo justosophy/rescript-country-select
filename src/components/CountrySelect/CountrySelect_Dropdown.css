@@ -1,0 +1,21 @@
+.countryselect--dropdown {
+    position: relative;
+}
+
+.countryselect--dropdown--menu {
+    position: absolute;
+    margin-top: 4px;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 0 0 1px hsla(218, 50%, 10%, 0.1), 0 4px 11px hsla(218, 50%, 10%, 0.1);
+    z-index: 2;
+}
+
+.countryselect--dropdown--cover {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}

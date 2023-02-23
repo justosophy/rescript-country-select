@@ -1,0 +1,16 @@
+.countryselect--select .react-select--option {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 5px 12px;
+    color: #333;
+}
+
+.countryselect--select .react-select--option.react-select--option--focused {
+    background-color: hsl(32, 100%, 85%) !important;
+}
+
+.countryselect--select .react-select--option.react-select--option--selected {
+    background-color: hsl(32, 90%, 80%);
+}
+

@@ -1,18 +1,49 @@
-.react-select--flag-options {
-    display: flex;
-    align-items: center;
-    position: relative;
+.countryselect {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #333;
+    font-size: 14px;
+    line-height: 18px;
 }
 
-.fi {
+.countryselect>* {
+    box-sizing: border-box;
+}
+
+.countryselect--button {
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    line-height: 18px;
+    padding: 5px 12px;
+    border: solid 1px hsl(0deg 0% 78%);
+    border-radius: 3px;
+    background: #fff;
+}
+
+.countryselect--button:focus {
+    border: solid 1px hsl(0deg 0% 60%);
+    outline: none;
+}
+
+.countryselect--button--novalue {
+    color: #555;
+}
+
+.countryselect--button--arrow {
+    width: 8px;
+    height: 5px;
+    margin-left: 8px;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fillRule='evenodd' clipRule='evenodd' d='M0 0H8L4 5L0 0Z' fill='%23333333'/%3e%3c/svg%3e");
+}
+
+.countryselect .fi {
+    display: inline-block;
+    width: 14px;
     background-size: contain;
     background-position: 50%;
     background-repeat: no-repeat;
-    margin-right: 1rem;
+    margin-right: 10px;
     position: relative;
-    top: -3px;
-}
-
-.react-select--flag-options>* {
-    line-height: 0.75rem;
 }
