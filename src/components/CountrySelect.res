@@ -12,6 +12,7 @@ module ReactSelect = {
     ~autoFocus: bool,
     ~controlShouldRenderValue: bool,
     ~menuIsOpen: bool,
+    ~onMenuClose: unit => unit,
     ~components: {
       "Control": React.component<
         CountrySelect_Control.props<
@@ -138,11 +139,25 @@ let make = (~className: option<string>=?, ~country: option<string>, ~onChange: s
     Js.Array.find(countryOpt => countryOpt["value"] == c, countryOptions)
   )
 
+  let handleButtonKeyDown = React.useCallback0((e: ReactEvent.Keyboard.t) => {
+    let key = ReactEvent.Keyboard.key(e)
+    switch key {
+    | "ArrowDown" =>
+      ReactEvent.Keyboard.preventDefault(e)
+      setIsOpen(._ => true)
+    | _ => ()
+    }
+  })
+
+  let handleOnMenuClose = React.useCallback0(() => setIsOpen(._ => false))
+
   <div className={"countryselect " ++ className->Belt.Option.getWithDefault("")}>
     <CountrySelect_DropDown
       isOpen
       target={<button
-        className="countryselect--button" onClick={_ => setIsOpen(.previous => !previous)}>
+        className="countryselect--button"
+        onClick={_ => setIsOpen(.previous => !previous)}
+        onKeyDown=handleButtonKeyDown>
         {<>
           {value->Belt.Option.mapWithDefaultU(
             <span className="countryselect--button--novalue"> {React.string("Select")} </span>,
@@ -165,6 +180,7 @@ let make = (~className: option<string>=?, ~country: option<string>, ~onChange: s
         autoFocus=true
         controlShouldRenderValue=false
         menuIsOpen=true
+        onMenuClose={handleOnMenuClose}
         components={{
           "Control": CountrySelect_Control.make,
           "DropdownIndicator": React.null,
